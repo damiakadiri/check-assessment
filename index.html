@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <form class="form">
+        <input type="hidden" name="applicantEmail" value="email" />
+        <div>
+          <label for="first name">First Name</label>
+          <input type="text" name="firstname" id="first name" required />
+        </div>
+        <div>
+          <label for="">Last Name</label>
+          <input type="text" name="lastname" id="last name" required />
+        </div>
+        <div>
+          <label for="">Company</label>
+          <input type="text" name="Company" id="Company" required />
+        </div>
+        <div>
+          <label for="">Work Email</label>
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div>
+          <label for="companySize">Company Size</label>
+          <select name="companySize" id="companySize" required>
+            <option value="0-10">0-10</option>
+            <option value="11-50">11-50</option>
+            <option value="51-100">51-100</option>
+          </select>
+        </div>
+        <div>
+          <label for="fundingStage">Funding Stage</label>
+          <select name="fundingStage" id="fundingStage" optional>
+            <option value="#100k">#100k</option>
+            <option value="#100k-#500k">#100k-#500k</option>
+            <option value="#500k-#1M">#500k-#1M</option>
+          </select>
+        </div>
+        <div class="text-area">
+          <label for="anyOtherMessage">Any Other Message</label>
+          <textarea
+            name="anyOtherMessage"
+            id="anyOtherMessage"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </body>
+
+  <script>
+    const formEl = document.querySelector("form");
+
+    formEl.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(formEl);
+      const data = Object.fromEntries(formData);
+
+      fetch("https://eodh6njvzgfl22j.m.pipedream.net", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.log(error));
+    });
+  </script>
+</html>
